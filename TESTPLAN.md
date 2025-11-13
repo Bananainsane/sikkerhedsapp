@@ -3,7 +3,7 @@
 **Projekt:** Sikkerhedsapp - Authentication & Authorization System
 **Version:** 1.0
 **Dato:** 13. november 2025
-**Testansvarlig:** Bananainsane
+**Testansvarlig:** Hans
 
 ---
 
@@ -641,7 +641,7 @@ Logout functionality works correctly. After logout, homepage shows "Hello, World
 ## IV. Test Execution Summary
 
 **Test Date:** 13. november 2025
-**Tester:** Bananainsane
+**Tester:** Hans
 **Environment:** Windows 10/11, Chrome Browser, Node.js HTTPS Server
 
 ### Test Results Overview
@@ -709,4 +709,4 @@ The Sikkerhedsapp system is **approved for submission** based on the following e
 The application meets all functional and non-functional requirements specified in the Day 4 assignment documentation. Recommend approval for submission.
 
 **Test Plan Completed:** 13. november 2025
-**Approved by:** Bananainsane (Test Manager)
+**Approved by:** Hans (Test Manager)
