@@ -1,0 +1,4 @@
+Confidential Document
+
+This file contains sensitive data.
+Encrypted at: 2025-12-10T11:28:58.100Z

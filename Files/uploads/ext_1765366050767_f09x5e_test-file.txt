@@ -1,0 +1,5 @@
+Test file created at 2025-12-10T11:27:30.198Z
+
+This is a test file for encrypted upload.
+The content should be encrypted with AES-256-CBC
+and the AES key encrypted with RSA-2048.
