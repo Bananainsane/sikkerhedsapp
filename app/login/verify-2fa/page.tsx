@@ -8,18 +8,21 @@ import { signIn } from "next-auth/react";
 export default function Verify2FAPage() {
   const [code, setCode] = useState("");
   const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    // Get the email from sessionStorage (set during login)
+    // Get the email and userId from sessionStorage (set during login)
     const tempEmail = sessionStorage.getItem("tempLoginEmail");
-    if (!tempEmail) {
-      // If no email, redirect to login
+    const tempUserId = sessionStorage.getItem("tempLoginUserId");
+    if (!tempEmail || !tempUserId) {
+      // If no email/userId, redirect to login
       router.push("/login");
     } else {
       setEmail(tempEmail);
+      setUserId(tempUserId);
     }
   }, [router]);
 
@@ -28,7 +31,7 @@ export default function Verify2FAPage() {
     setError("");
     setLoading(true);
 
-    if (!email) {
+    if (!userId) {
       setError("Session expired. Please log in again.");
       setLoading(false);
       return;
@@ -39,17 +42,19 @@ export default function Verify2FAPage() {
     if (!password) {
       setError("Session expired. Please log in again.");
       sessionStorage.removeItem("tempLoginEmail");
+      sessionStorage.removeItem("tempLoginUserId");
       router.push("/login");
       return;
     }
 
     try {
-      // Verify 2FA and complete login
-      await verifyTwoFactorLogin(email, password, code);
+      // Verify 2FA and complete login (now using userId)
+      await verifyTwoFactorLogin(userId, password, code);
 
       // Clear temp storage
       sessionStorage.removeItem("tempLoginEmail");
       sessionStorage.removeItem("tempLoginPassword");
+      sessionStorage.removeItem("tempLoginUserId");
 
       // If we get here without error, redirect happened
     } catch (error: any) {
@@ -58,6 +63,7 @@ export default function Verify2FAPage() {
         // This is expected - NextAuth redirects after successful login
         sessionStorage.removeItem("tempLoginEmail");
         sessionStorage.removeItem("tempLoginPassword");
+        sessionStorage.removeItem("tempLoginUserId");
         return;
       }
 
@@ -70,6 +76,7 @@ export default function Verify2FAPage() {
   function handleCancel() {
     sessionStorage.removeItem("tempLoginEmail");
     sessionStorage.removeItem("tempLoginPassword");
+    sessionStorage.removeItem("tempLoginUserId");
     router.push("/login");
   }
 

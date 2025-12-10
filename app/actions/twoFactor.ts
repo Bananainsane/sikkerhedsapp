@@ -9,26 +9,30 @@ import { TwoFactorCodeSchema } from "@/lib/validations";
 export async function generateTwoFactorSecret() {
   const session = await auth();
 
-  if (!session || !session.user?.email) {
+  if (!session || !session.user?.id) {
     return { error: "Not authenticated" };
   }
 
   // Generate a random secret
   const secret = authenticator.generateSecret();
 
-  // Get user email for the QR code
-  const userEmail = session.user.email;
+  // Get user info - use username or ID for display (email is hashed)
+  const user = await db.user.findUnique({
+    where: { id: session.user.id },
+    select: { username: true },
+  });
+  const displayName = user?.username || session.user.id;
 
   // Generate the OTP Auth URL for QR code
   const otpauth = authenticator.keyuri(
-    userEmail,
+    displayName,
     "Sikkerhedsapp",
     secret
   );
 
   // Store the secret temporarily (not yet enabled)
   await db.user.update({
-    where: { email: userEmail },
+    where: { id: session.user.id },
     data: { twoFactorSecret: secret },
   });
 
@@ -43,7 +47,7 @@ export async function generateTwoFactorSecret() {
 export async function enableTwoFactor(formData: FormData) {
   const session = await auth();
 
-  if (!session || !session.user?.email) {
+  if (!session || !session.user?.id) {
     return { error: "Not authenticated" };
   }
 
@@ -58,7 +62,7 @@ export async function enableTwoFactor(formData: FormData) {
 
   // Get user with secret
   const user = await db.user.findUnique({
-    where: { email: session.user.email },
+    where: { id: session.user.id },
   });
 
   if (!user || !user.twoFactorSecret) {
@@ -77,7 +81,7 @@ export async function enableTwoFactor(formData: FormData) {
 
   // Enable 2FA
   await db.user.update({
-    where: { email: session.user.email },
+    where: { id: session.user.id },
     data: { twoFactorEnabled: true },
   });
 
@@ -88,13 +92,13 @@ export async function enableTwoFactor(formData: FormData) {
 export async function disableTwoFactor() {
   const session = await auth();
 
-  if (!session || !session.user?.email) {
+  if (!session || !session.user?.id) {
     return { error: "Not authenticated" };
   }
 
   // Disable 2FA and remove secret
   await db.user.update({
-    where: { email: session.user.email },
+    where: { id: session.user.id },
     data: {
       twoFactorEnabled: false,
       twoFactorSecret: null,
@@ -105,7 +109,8 @@ export async function disableTwoFactor() {
 }
 
 // Verify 2FA code during login and complete sign in
-export async function verifyTwoFactorLogin(email: string, password: string, code: string) {
+// Now uses userId since email is hashed
+export async function verifyTwoFactorLogin(userId: string, password: string, code: string) {
   // Validate code format
   const validatedCode = TwoFactorCodeSchema.safeParse({ code });
 
@@ -113,9 +118,9 @@ export async function verifyTwoFactorLogin(email: string, password: string, code
     return { error: "Invalid code format. Must be 6 digits." };
   }
 
-  // Get user
+  // Get user by ID
   const user = await db.user.findUnique({
-    where: { email },
+    where: { id: userId },
   });
 
   if (!user || !user.twoFactorEnabled || !user.twoFactorSecret) {
@@ -136,9 +141,9 @@ export async function verifyTwoFactorLogin(email: string, password: string, code
   const { signIn } = await import("@/auth");
 
   try {
-    // Sign in with credentials - this will create the session
+    // Sign in with credentials using userId - this will create the session
     await signIn("credentials", {
-      email,
+      userId,
       password,
       redirectTo: "/dashboard",
     });

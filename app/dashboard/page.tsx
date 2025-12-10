@@ -59,18 +59,32 @@ export default async function DashboardPage() {
             </div>
             <div className="flex items-center space-x-4">
               <Link
+                href="/files"
+                className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium"
+              >
+                Mine Filer
+              </Link>
+              <Link
                 href="/settings/security"
                 className="text-gray-700 hover:text-indigo-600 px-3 py-2 rounded-md text-sm font-medium"
               >
                 Sikkerhed
               </Link>
               {isAdmin && (
-                <Link
-                  href="/admin/manage-users"
-                  className="text-purple-700 hover:text-purple-900 px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  👑 Admin
-                </Link>
+                <>
+                  <Link
+                    href="/admin/files"
+                    className="text-purple-700 hover:text-purple-900 px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    📁 Upload Filer
+                  </Link>
+                  <Link
+                    href="/admin/manage-users"
+                    className="text-purple-700 hover:text-purple-900 px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    👑 Admin
+                  </Link>
+                </>
               )}
               <SignOutButton />
             </div>

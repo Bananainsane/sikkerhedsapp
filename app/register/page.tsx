@@ -45,6 +45,27 @@ export default function RegisterPage() {
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="space-y-4">
+            {/* Username */}
+            <div>
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Brugernavn
+              </label>
+              <input
+                id="username"
+                name="username"
+                type="text"
+                required
+                className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-900"
+                placeholder="dit_brugernavn"
+              />
+              <p className="mt-1 text-xs text-gray-500">
+                Vises til andre brugere (gemmes i klartekst)
+              </p>
+            </div>
+
             {/* Email */}
             <div>
               <label
@@ -61,6 +82,9 @@ export default function RegisterPage() {
                 className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 text-gray-900"
                 placeholder="din@email.dk"
               />
+              <p className="mt-1 text-xs text-gray-500">
+                Hasheres med salt + pepper (PBKDF2)
+              </p>
             </div>
 
             {/* Password */}

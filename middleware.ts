@@ -7,7 +7,9 @@ export default auth((req) => {
   // Protected routes that require authentication
   const isProtectedRoute =
     nextUrl.pathname.startsWith("/dashboard") ||
-    nextUrl.pathname.startsWith("/settings");
+    nextUrl.pathname.startsWith("/settings") ||
+    nextUrl.pathname.startsWith("/files") ||
+    nextUrl.pathname.startsWith("/admin");
 
   // Redirect to login if trying to access protected route without auth
   if (isProtectedRoute && !isLoggedIn) {

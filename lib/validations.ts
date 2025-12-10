@@ -15,6 +15,7 @@ export const PasswordSchema = z
 // Registration schema
 export const RegisterSchema = z
   .object({
+    username: z.string().min(2, "Username must be at least 2 characters").max(50, "Username must be less than 50 characters"),
     email: z.string().email("Invalid email address"),
     password: PasswordSchema,
     confirmPassword: z.string(),

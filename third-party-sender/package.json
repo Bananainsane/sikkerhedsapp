@@ -1,0 +1,18 @@
+{
+  "name": "third-party-sender",
+  "version": "1.0.0",
+  "description": "Third-party file sender for testing encrypted file uploads",
+  "main": "send-file.ts",
+  "scripts": {
+    "send": "npx tsx send-file.ts",
+    "send:test": "npx tsx send-file.ts test-file.txt"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.0.0"
+  }
+}

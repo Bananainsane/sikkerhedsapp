@@ -31,9 +31,11 @@ export default function LoginPage() {
       // Note: This is simplified for school assignment - not production-ready
       sessionStorage.setItem("tempLoginEmail", email);
       sessionStorage.setItem("tempLoginPassword", password);
+      sessionStorage.setItem("tempLoginUserId", (result as any).userId);  // Store userId for hashed email lookup
       router.push("/login/verify-2fa");
-    } else {
-      // Success - NextAuth will handle redirect to dashboard
+    } else if ((result as any)?.success) {
+      // Success - redirect to dashboard manually (avoid HTTP/HTTPS redirect issues)
+      router.push("/dashboard");
     }
   }
 

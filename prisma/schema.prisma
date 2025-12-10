@@ -12,8 +12,10 @@ datasource db {
 // User model with 2FA fields
 model User {
   id                String    @id @default(cuid())
-  email             String    @unique
-  password          String    // Hashed password
+  email             String    @unique  // Hashed with salt+pepper for privacy
+  emailSalt         String?            // Per-user salt for email hashing
+  username          String?            // Display name (plain text)
+  password          String             // Hashed with bcrypt
   name              String?
 
   // Role-based authorization
