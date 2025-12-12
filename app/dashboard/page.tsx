@@ -31,9 +31,11 @@ export default async function DashboardPage() {
   }
 
   // Get user's 2FA status and role
+  // Use user ID instead of email since emails are hashed in database
   const user = await db.user.findUnique({
-    where: { email: session.user.email! },
+    where: { id: session.user.id },
     select: {
+      username: true,
       email: true,
       name: true,
       role: true,
@@ -132,8 +134,14 @@ export default async function DashboardPage() {
             </h3>
             <dl className="grid grid-cols-1 gap-4">
               <div>
+                <dt className="text-sm font-medium text-gray-500">Brugernavn</dt>
+                <dd className="mt-1 text-sm text-gray-900">{user.username || user.name || "Ikke angivet"}</dd>
+              </div>
+              <div>
                 <dt className="text-sm font-medium text-gray-500">Email</dt>
-                <dd className="mt-1 text-sm text-gray-900">{user.email}</dd>
+                <dd className="mt-1 text-sm text-gray-900 font-mono text-xs">
+                  {user.email.substring(0, 16)}... (hashed)
+                </dd>
               </div>
               <div>
                 <dt className="text-sm font-medium text-gray-500">Navn</dt>

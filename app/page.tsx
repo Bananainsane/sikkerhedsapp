@@ -11,7 +11,7 @@ export default async function Home() {
   if (session && session.user) {
     // User is authenticated
     const user = await db.user.findUnique({
-      where: { email: session.user.email! },
+      where: { id: session.user.id },
       select: { role: true },
     });
 

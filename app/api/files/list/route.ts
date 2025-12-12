@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
 
     // Get current user
     const currentUser = await db.user.findUnique({
-      where: { email: session.user.email },
+      where: { id: session.user.id },
       select: { role: true, name: true },
     });
 

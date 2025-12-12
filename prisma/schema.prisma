@@ -1,5 +1,3 @@
-// Prisma schema for authentication with 2FA support
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,30 +7,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// User model with 2FA fields
 model User {
-  id                String    @id @default(cuid())
-  email             String    @unique  // Hashed with salt+pepper for privacy
-  emailSalt         String?            // Per-user salt for email hashing
-  username          String?            // Display name (plain text)
-  password          String             // Hashed with bcrypt
-  name              String?
-
-  // Role-based authorization
-  role              String    @default("user") // "user" or "admin"
-
-  // Two-Factor Authentication fields
-  twoFactorEnabled  Boolean   @default(false)
-  twoFactorSecret   String?   // TOTP secret key
-
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-
-  accounts          Account[]
-  sessions          Session[]
+  id               String    @id @default(cuid())
+  email            String    @unique
+  password         String
+  name             String?
+  role             String    @default("user")
+  twoFactorEnabled Boolean   @default(false)
+  twoFactorSecret  String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  emailSalt        String?
+  username         String?
+  accounts         Account[]
+  sessions         Session[]
 }
 
-// Auth.js required models
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -46,8 +36,7 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }

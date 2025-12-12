@@ -48,5 +48,45 @@
     "uploadedBy": "admin@example.com",
     "uploadedFor": "admin@example.com",
     "uploadedAt": "2025-12-10T13:05:29.310Z"
+  },
+  {
+    "id": "file_1765523823597_xifdrox",
+    "filename": "Screenshot 2025-05-27 at 12.21.28.png",
+    "filetype": ".png",
+    "hash": "8470377268cb77682036ed3c759b6239d5d6fe468fe60aa71289cd8df14495ef",
+    "hmacKey": "9f488dc66051049cf29b0792db17c9f23b45f89df5fe4412184313e60ff7bd70",
+    "uploadedBy": "Demo Admin",
+    "uploadedFor": "Hans@twincurrent.dk",
+    "uploadedAt": "2025-12-12T07:17:03.597Z"
+  },
+  {
+    "id": "file_1765524042819_fvmagwu",
+    "filename": "test-upload.txt",
+    "filetype": ".txt",
+    "hash": "c023d7e4e68cb0e9f04c2026f93c46f562d090549ab95957951a5b581ceb06b8",
+    "hmacKey": "a30884b1e0e466373d98858eb0f4b7fc672032b2b5e8d554460fbb5c556c073d",
+    "uploadedBy": "Demo Admin",
+    "uploadedFor": "Demo Admin",
+    "uploadedAt": "2025-12-12T07:20:42.819Z"
+  },
+  {
+    "id": "ext_1765524216986_avh2gr",
+    "filename": "test-file.txt",
+    "filetype": ".txt",
+    "hash": "b8b8a4974a34c625c77885d9aeb101105923c538db1f965be7c601472ffedf4e",
+    "hmacKey": "112d2ec206a2dc86a8a0c51bd8dbe04c4028f1a03601d1e9a919168d9128390c",
+    "uploadedBy": "Third-Party Sender v1.0",
+    "uploadedFor": "uploads",
+    "uploadedAt": "2025-12-12T07:23:36.986Z"
+  },
+  {
+    "id": "ext_1765524267010_ew36m",
+    "filename": "test-file.txt",
+    "filetype": ".txt",
+    "hash": "0465e4127caedd0664fe7f0f7c8711f3879add788c26ac16dfb8329ea1124346",
+    "hmacKey": "0464f31c7503a531a9df638c59beff44df181c1aebdbc2633c9d2e053271bbb6",
+    "uploadedBy": "Third-Party Sender v1.0",
+    "uploadedFor": "uploads",
+    "uploadedAt": "2025-12-12T07:24:27.011Z"
   }
 ]

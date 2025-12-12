@@ -22,7 +22,7 @@ export async function POST(request: Request) {
 
     // Check authorization - must be admin
     const currentUser = await db.user.findUnique({
-      where: { email: session.user.email! },
+      where: { id: session.user.id },
       select: { role: true },
     });
 
