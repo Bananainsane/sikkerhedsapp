@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { HealInit } from "@/components/heal-init";
 
 export const metadata: Metadata = {
   title: "Sikkerhedsapp - Auth & 2FA Demo",
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="da">
       <body className="antialiased">
+        <HealInit />
         {children}
       </body>
     </html>
